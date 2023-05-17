@@ -2,7 +2,7 @@
   "name": "ubc-examcal-client",
   "version": "1.0.0",
   "main": "index.js",
-  "devDependencies": {
+  "dependencies": {
     "@sendgrid/mail": "^7.7.0",
     "@sveltejs/adapter-vercel": "^2.4.0",
     "axios": "^1.2.1",

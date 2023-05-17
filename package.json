@@ -4,7 +4,7 @@
   "description": "scrapes UBC exam details",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "deskApp": "concurrently \"npm run server\" \"npm run clientDesk\"",
     "build": "npm install --prefix client && npm run build --prefix client",
@@ -17,8 +17,7 @@
     "url": "https://github.com/krusnabalar/ExamCal"
   },
   "license": "MIT",
-  "devDependencies": {
-    "@playwright/test": "^1.30.0",
+  "dependencies": {
     "@sendgrid/mail": "^7.7.0",
     "body-parser": "^1.20.1",
     "concurrently": "^7.6.0",

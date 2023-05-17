@@ -25,17 +25,13 @@ router.post("/", async (req, res) => {
         await page.goto("https://ssc.adm.ubc.ca/sscportal/servlets/SSCMain.jsp?function=ExamSchedule");
 
         // check if Exam Dates are out
-        try {
-            if (await page.frameLocator('iframe[name="iframe-main"]').getByRole('table').count()  <= 1) {
-                await page.getByText("Logout").click();
-                await browser.close();
-                res.status(500).json({ message: "Exam Schedule is not currently available" });
-            }
-        } catch(error) {
+        if (await page.frameLocator('iframe[name="iframe-main"]').getByRole('table').count()  <= 1) {
+            await page.getByText("Logout").click();
             await browser.close();
-            res.status(500).json({ message: buffer1.toString('base64') });
+            res.send({ data: "Exam Schedule is currently not available" });
+            return "Exam Schedule is currently not available";
         }
-
+        // if Exam Dates are out, retrieve relevant information
         const table = page.frameLocator('iframe[name="iframe-main"]').getByRole('table').nth(1)
         const rowCount = await table.getByRole('row').count();
         let examData = [];
@@ -62,7 +58,7 @@ router.post("/", async (req, res) => {
         await browser.close();
         res.status(200).json({ data: examData });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ message: error.message })
     }
   });
 

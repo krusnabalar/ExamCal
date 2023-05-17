@@ -35,15 +35,15 @@
       password: password,
     };
 
+    cwl = "";
+    password = "";
+
     let examData = await axios.post(
       "http://localhost:5000/api/getFinals",
       details
     );
     examData = examData.data;
-
-    cwl = "";
-    password = "";
-    if (examData.data == "Exam Schedule is not currently available") {
+    if (examData.data == "Exam Schedule is currently not available") {
       noSchedule = true;
       return;
     }
@@ -84,7 +84,7 @@
       return "Invalid Email: Please enter a valid email";
     }
     if (noSchedule) {
-      return "Exam Schedule is not currently available";
+      return "Exam Schedule is currently not available";
     }
     if (emailError) {
       return "Invalid SendGrid Setup: Ensure email is verified";
